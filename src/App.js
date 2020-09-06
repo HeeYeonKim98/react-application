@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Info from "./Info";
 
 export default class App extends Component {
   state = {
@@ -8,14 +9,12 @@ export default class App extends Component {
   async componentDidMount() {
     const res = await fetch("http://127.0.0.1:8000/api/");
     const infos = await res.json();
-    console.log(infos);
 
     this.setState({ infos });
   }
 
   render() {
     const { infos } = this.state;
-    console.log(infos);
 
     return (
       <div>
@@ -23,11 +22,8 @@ export default class App extends Component {
         <div>
           {infos.map((i) => {
             return (
-              <div>
-                <div>{i.key}</div>
-                <div>{i.id}</div>
-                <div>{i.title}</div>
-                <div>{i.content}</div>
+              <div key={i.id}>
+                <Info id={i.id} title={i.title} content={i.content} />
               </div>
             );
           })}
